@@ -12,7 +12,19 @@ module.exports = {
         test: /\.css/,  // 匹配资源
         // loader: "css-loader",  一般不这样使用，这是下面的简写
         use: [
-          'style-loader', 'css-loader'
+          'style-loader', 
+          'css-loader',
+          {
+            loader: "postcss-loader", // 查询浏览器
+            options: {
+              postcssOptions: {
+                plugins: [
+                  require("autoprefixer"), // 添加前缀插件
+                  require('postcss-preset-env') // 使用这个更多，可以转换新特性
+                ]
+              }
+            }
+          } 
         ]
       },
       {
