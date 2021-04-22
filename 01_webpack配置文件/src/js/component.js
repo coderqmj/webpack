@@ -13,7 +13,12 @@ function component() {
   element.appendChild(imgEl);
 
   // 创建div，设置背景图片
-  const bgDivEl = doc
+  const bgDivEl = document.createElement('div');
+  bgDivEl.style.width = 200 + 'px';
+  bgDivEl.style.height = 200 + 'px';
+  bgDivEl.className = 'bg-image';
+  bgDivEl.style.backgroundColor = "red";
+  element.appendChild(bgDivEl);
 
   return element;
 }

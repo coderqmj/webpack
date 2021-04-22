@@ -3,7 +3,8 @@ module.exports = {
   entry: './src/main.js',
   output: {
     filename: "boundle.js",
-    path: path.resolve(__dirname, "./build")
+    path: path.resolve(__dirname, "./build"),
+    // assetModuleFilename: "img/[name].[hash:6].[ext]" 写死了 不大行
   },
   module: {
     rules: [
@@ -35,7 +36,33 @@ module.exports = {
           "less-loader"
         ]
       },
-      {},
+      // file-loader 和 url-loader的对其他资源加载代码配置
+      // {
+      //   test:/\.(png|jpg|jpeg|gif|svg)$/ ,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: "[name].[hash:6].[ext]",
+      //         outputPath: "img"
+      //       }
+      //     }
+      //   ]
+      // },
+      {
+        test:/\.(png|jpg|jpeg|gif|svg)$/ ,
+        // type: "asset/resource",
+        // type: "asset/inline", base64打包
+        type: "asset",  // 二选一打包 
+        generator: {
+          filename: "img/[name].[hash:6][ext]"
+        },
+        parser: {
+          dataUrlCondition: {
+            maxSize: 100 *1024
+          }
+        }
+      },
     ]
   }
 }
